@@ -3,17 +3,24 @@
 
 <head>
     <meta charset="UTF-8">
+    
     <title>{% block title %}Index{% endblock title %}</title>
 </head>
 <body>
     {% block header %}Главная страница{% endblock header %}
     {% block content%}
-    <p>Анализ возраста клиента</p>
-    {% if age > 60 %}
-        <p>Клиент достиг пенсионного возраста</p>
-    {% else %}
-        <p>Клиент не является пенсионером</p>
-    {% endif %}
+    <p>Категории продуктов</p>
+    {% for i in cat %}
+    <li>{{ i }}</li>
+    {% empty %}
+    <li>Категории продуктов отсутствуют</li>
+    {% endfor %}
+    {% with name="ЧАЙХАНА" nom=1 %}
+    <div>
+    <p>При магазине работает {{ name }}</p>
+    <p>Номер № {{ nom }}</p>
+    </div>
+    {% endwith %}
     {% endblock content %}
 </body>
 </html>

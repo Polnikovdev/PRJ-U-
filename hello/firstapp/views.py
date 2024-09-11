@@ -34,8 +34,12 @@ def index(request):
     # data = {"header": header, "langs": langs, "user": user, "address":
     # addr}
     # return render(request, "index.html", data)
-    data = {"age": 50}
-    return render(request, "firstapp/index.html", context=data)
+    
+    #data = {"age": 50}
+    #return render(request, "firstapp/index.html", context=data)
+
+    cat = ["Ноутбуки", "Принтеры", "Сканеры", "Диски", "Шнуры"]
+    return render(request, "firstapp/index.html", context={"cat": cat})
 
 
 def about(request):

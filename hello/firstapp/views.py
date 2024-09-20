@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django import forms
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponseNotModified, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound, HttpResponseNotAllowed, HttpResponseGone, HttpResponseServerError
 from django.template.response import TemplateResponse
 #from django.http import *
@@ -38,8 +39,20 @@ def index(request):
     #data = {"age": 50}
     #return render(request, "firstapp/index.html", context=data)
 
-    cat = ["Ноутбуки", "Принтеры", "Сканеры", "Диски", "Шнуры"]
-    return render(request, "firstapp/index.html", context={"cat": cat})
+    #cat = ["Ноутбуки", "Принтеры", "Сканеры", "Диски", "Шнуры"]
+    #return render(request, "firstapp/index.html", context={"cat": cat})
+
+    #userform = UserForm()
+    #return render(request, "firstapp/index.html", {"form": userform})
+
+    if request.method == "POST":
+        name = request.POST.get("name") # получить значения поля Имя
+        age = request.POST.get("age") # значения поля Возраст
+        output = "<h2>Пользователь</h2><h3>Имя - {0}, Возраст – {1}</h3>".format(name, age)
+        return HttpResponse(output)
+    else:
+        userform = UserForm()
+        return render(request, "firstapp/index.html", {"form": userform})
 
 
 def about(request):
@@ -51,6 +64,8 @@ def contact(request):
 
 def details(request):
     return HttpResponsePermanentRedirect("/")
+
+
 
 
 def m304(request):

@@ -1,20 +1,29 @@
 from django.shortcuts import render
 from django import forms
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponseNotModified, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound, HttpResponseNotAllowed, HttpResponseGone, HttpResponseServerError
+#from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponseNotModified, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound, HttpResponseNotAllowed, HttpResponseGone, HttpResponseServerError
+from django.http import *
 from django.template.response import TemplateResponse
-#from django.http import *
+#from hello.firstapp.forms import UserForm
+
+#class UserForm(forms.Form):
+#    file = forms.ImageField(label="Изображение")
+
+#class UserForm(forms.Form):
+#    date = forms.DateField(label="Введите дату")
+
+#class UserForm(forms.Form):
+#    time = forms.DateField(label="Введите время")
+
+#class UserForm(forms.Form):
+#    date_time = forms.DateTimeField(label="Введите дату и время")
+
+#class UserForm(forms.Form):
+#    num = forms.IntegerField(label="Введите целое число")
+
+class UserForm(forms.Form):
+    num = forms.ChoiceField(label="Выберите язык", choices=((1, "Английский"), (2, "Немецкий"), (3, "Французкий")))
 
 # Create your views here.
-#def index(request):
-#    return HttpResponse("Hello World! Это мой первый проект на Django!")
-
-#def index(request):
-#    return HttpResponse("<h2>Глaвнaя</h2>")
-#def about(request):
-#    return HttpResponse("<h2>О сайте</h2>")
-#def contact(request):
-#    return HttpResponse("<h2>Koнтaкты</h2>")
-
 def products(request, productid):
     category = request.GET.get("cat", "")
     output = "<h2>Продукт № {0} Категория: {1}</h2>" .format(productid, category)
@@ -26,29 +35,9 @@ def users(request):
     return HttpResponse(output)
 
 def index(request):
-    #return HttpResponse("Index")
-    #return render(request, "firstapp/home.html")
-    # header = "Персональные данные" # обычная переменная
-    # langs = ["Английский", "Немецкий", "Испанский"] # массив
-    # user = {"name": "Максим,", "age": 30} # словарь
-    # addr = ("Виноградная", 23, 45) # кортеж
-    # data = {"header": header, "langs": langs, "user": user, "address":
-    # addr}
-    # return render(request, "index.html", data)
-    
-    #data = {"age": 50}
-    #return render(request, "firstapp/index.html", context=data)
-
-    #cat = ["Ноутбуки", "Принтеры", "Сканеры", "Диски", "Шнуры"]
-    #return render(request, "firstapp/index.html", context={"cat": cat})
-
-    #userform = UserForm()
-    #return render(request, "firstapp/index.html", {"form": userform})
-
     if request.method == "POST":
-        name = request.POST.get("name") # получить значения поля Имя
-        age = request.POST.get("age") # значения поля Возраст
-        output = "<h2>Пользователь</h2><h3>Имя - {0}, Возраст – {1}</h3>".format(name, age)
+        name = request.POST.get("form")
+        output = "<h2>Пользователь</h2><h3>Имя - {0}, Возраст – </h3>".format(name)
         return HttpResponse(output)
     else:
         userform = UserForm()

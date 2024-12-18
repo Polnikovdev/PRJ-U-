@@ -6,6 +6,7 @@ from.models import Author, Book, Genre, Language, Status, BookInstance
 
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ("last_name", "first_name", "date_of_birth", "date_of_death")
+    fields = ["first_name", "last_name", "date_of_birth", "date_of_death"]
 
 admin.site.register(Author, AuthorAdmin)
 
@@ -14,15 +15,22 @@ admin.site.register(Author, AuthorAdmin)
 @admin.register(Book)
 @admin.register(BookInstance)
 
+#class BookInstanceInline(admin.TabularInline):
+#    model = BookInstance
+
 class BookAdmin(admin.ModelAdmin):
     #list_display = ("title", "genre", "language", "display_author")
     #list_filter = ("genre", "author")
     #list_display = (display_author.short_description)
+    
+    #inlines = [BookInstanceInline]
+    
     pass
 
 class BookInstanceAdmin(admin.ModelAdmin):
     #pass
     list_filter = ("book", "status")
+    fieldsets = (("Экземпляр книги", {'fields': ('book', 'imprint', 'inv_nom')}), ("Статус и окончание его действия", {"fields": ("status", "due_back")}),)
 
 
 

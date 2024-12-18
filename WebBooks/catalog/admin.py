@@ -15,10 +15,10 @@ admin.site.register(Author, AuthorAdmin)
 @admin.register(BookInstance)
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ("title", "genre", "language", "display_author")
-    list_filter = ("genre", "author")
+    #list_display = ("title", "genre", "language", "display_author")
+    #list_filter = ("genre", "author")
     #list_display = (display_author.short_description)
-    #pass
+    pass
 
 class BookInstanceAdmin(admin.ModelAdmin):
     #pass

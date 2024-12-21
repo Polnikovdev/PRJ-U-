@@ -17,10 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from catalog import views
+#from django.conf.urls import url
 #from . import views
 
 urlpatterns = [
-    path("", views.index, name = "home"),
-    path('admin/', admin.site.urls),
+    # path("", views.index, name = "home"),
+    # path('admin/', admin.site.urls),
+    # path("", views.index, name="index"),
+
     path("", views.index, name="index"),
+    path("admin/", admin.site.urls),
+    path(r"^books/$", views.BookListView.as_view(), name="books"),
+    path(r"^book/(?P<pk>\d+)$", views.BookDetailView.as_view(), name="book-detail"),
+    path(r"^authors/$", views.AuthorListView.as_view(), name="authors"),
 ]

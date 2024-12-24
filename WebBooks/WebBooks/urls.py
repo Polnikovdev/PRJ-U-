@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from catalog import views
+from django.urls import path, include
 #from django.conf.urls import url
 #from . import views
 
@@ -30,4 +31,5 @@ urlpatterns = [
     path(r"^books/$", views.BookListView.as_view(), name="books"),
     path(r"^book/(?P<pk>\d+)$", views.BookDetailView.as_view(), name="book-detail"),
     path(r"^authors/$", views.AuthorListView.as_view(), name="authors"),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]

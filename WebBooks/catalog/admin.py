@@ -29,8 +29,21 @@ class BookAdmin(admin.ModelAdmin):
 
 class BookInstanceAdmin(admin.ModelAdmin):
     #pass
-    list_filter = ("book", "status")
-    fieldsets = (("Экземпляр книги", {'fields': ('book', 'imprint', 'inv_nom')}), ("Статус и окончание его действия", {"fields": ("status", "due_back")}),)
+    #list_filter = ("book", "status")
+    #fieldsets = (("Экземпляр книги", {'fields': ('book', 'imprint', 'inv_nom')}), ("Статус и окончание его действия", {"fields": ("status", "due_back")}),)
+    list_filter = ('status', 'due_back')
+    list_display = ('book', 'status', 'borrower', 'due_back', 'id')
+    fieldsets = (
+        (None, {
+            'fields': ('book', 'imprint', 'inv_nom')
+        }),
+        ('Availability', {
+            'fields': ('status', 'due_back', 'borrower')
+        }),
+    )
+    
+BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='2').order_by('due_back')
+
 
 
 
